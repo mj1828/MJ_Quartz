@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mj.mapper.CScheduleTriggerMapper">
+  <resultMap id="BaseResultMap" type="com.mj.entity.CScheduleTrigger">
+    <id column="jobId" jdbcType="INTEGER" property="jobid" />
+    <result column="jobName" jdbcType="VARCHAR" property="jobname" />
+    <result column="jobGroup" jdbcType="VARCHAR" property="jobgroup" />
+    <result column="jobStatus" jdbcType="INTEGER" property="jobstatus" />
+    <result column="isConcurrent" jdbcType="VARCHAR" property="isconcurrent" />
+    <result column="cronExpression" jdbcType="VARCHAR" property="cronexpression" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="springId" jdbcType="VARCHAR" property="springid" />
+    <result column="jobClass" jdbcType="VARCHAR" property="jobclass" />
+    <result column="methodName" jdbcType="VARCHAR" property="methodname" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="previousTime" jdbcType="TIMESTAMP" property="previoustime" />
+    <result column="nextTime" jdbcType="TIMESTAMP" property="nexttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jobId, jobName, jobGroup, jobStatus, isConcurrent, cronExpression, description, springId, 
+    jobClass, methodName, startTime, previousTime, nextTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CScheduleTrigger
+    where jobId = #{jobid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from CScheduleTrigger
+    where jobId = #{jobid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mj.entity.CScheduleTrigger">
+    insert into CScheduleTrigger ( jobName, jobGroup, 
+      jobStatus, isConcurrent, cronExpression, 
+      description, springId, jobClass, 
+      methodName, startTime, previousTime, 
+      nextTime)
+    values ( #{jobname,jdbcType=VARCHAR}, #{jobgroup,jdbcType=VARCHAR}, 
+      #{jobstatus,jdbcType=INTEGER}, #{isconcurrent,jdbcType=VARCHAR}, #{cronexpression,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{springid,jdbcType=VARCHAR}, #{jobclass,jdbcType=VARCHAR}, 
+      #{methodname,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{previoustime,jdbcType=TIMESTAMP}, 
+      #{nexttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mj.entity.CScheduleTrigger">
+    insert into CScheduleTrigger
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+     
+      <if test="jobName != null">
+        jobName,
+      </if>
+      <if test="jobGroup != null">
+        jobGroup,
+      </if>
+      <if test="jobStatus != null">
+        jobStatus,
+      </if>
+      <if test="isConcurrent != null">
+        isConcurrent,
+      </if>
+      <if test="cronExpression != null">
+        cronExpression,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="springId != null">
+        springId,
+      </if>
+      <if test="jobClass != null">
+        jobClass,
+      </if>
+      <if test="methodName != null">
+        methodName,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+      <if test="previousTime != null">
+        previousTime,
+      </if>
+      <if test="nextTime != null">
+        nextTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+     
+      <if test="jobName != null">
+        #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null">
+        #{jobgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null">
+        #{jobstatus,jdbcType=INTEGER},
+      </if>
+      <if test="isConcurrent != null">
+        #{isconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null">
+        #{cronexpression,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="springId != null">
+        #{springid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClass != null">
+        #{jobclass,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        #{methodname,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="previousTime != null">
+        #{previoustime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nextTime != null">
+        #{nexttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mj.entity.CScheduleTrigger">
+    update CScheduleTrigger
+    <set>
+      <if test="jobname != null">
+        jobName = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobgroup != null">
+        jobGroup = #{jobgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobstatus != null">
+        jobStatus = #{jobstatus,jdbcType=INTEGER},
+      </if>
+      <if test="isconcurrent != null">
+        isConcurrent = #{isconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="cronexpression != null">
+        cronExpression = #{cronexpression,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="springid != null">
+        springId = #{springid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobclass != null">
+        jobClass = #{jobclass,jdbcType=VARCHAR},
+      </if>
+      <if test="methodname != null">
+        methodName = #{methodname,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="previoustime != null">
+        previousTime = #{previoustime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nexttime != null">
+        nextTime = #{nexttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where jobId = #{jobid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mj.entity.CScheduleTrigger">
+    update CScheduleTrigger
+    set jobName = #{jobname,jdbcType=VARCHAR},
+      jobGroup = #{jobgroup,jdbcType=VARCHAR},
+      jobStatus = #{jobstatus,jdbcType=INTEGER},
+      isConcurrent = #{isconcurrent,jdbcType=VARCHAR},
+      cronExpression = #{cronexpression,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      springId = #{springid,jdbcType=VARCHAR},
+      jobClass = #{jobclass,jdbcType=VARCHAR},
+      methodName = #{methodname,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      previousTime = #{previoustime,jdbcType=TIMESTAMP},
+      nextTime = #{nexttime,jdbcType=TIMESTAMP}
+    where jobId = #{jobid,jdbcType=INTEGER}
+  </update>
+  <select id="cornList" resultType="com.mj.entity.CScheduleTrigger">
+  	select * from CScheduleTrigger
+  </select>
+</mapper>
