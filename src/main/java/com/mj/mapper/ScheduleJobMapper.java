@@ -2,8 +2,11 @@ package com.mj.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.mj.entity.ScheduleJob;
 
+@Mapper
 public interface ScheduleJobMapper {
 	/**
 	 * 创建任务
