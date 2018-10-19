@@ -17,17 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Repository;
 
-import com.mj.entity.CScheduleTrigger;
+import com.mj.entity.ScheduleJob;
 
-
-
-/**  
- * @ClassName: QuartzJobManager  
- * @Description: QuartzJob 管理器  
- * @author: cobra  
- * @date: 2018年9月28日  
- * @version: v1.0
- */  
+/**
+ * QuartzJob 管理器  
+ * @author MJ
+ * @mail mj_java@.com
+ * @date 2018年10月19日
+ */
 @Repository
 public class QuartzJobManager {
 
@@ -51,13 +48,14 @@ public class QuartzJobManager {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Date addJob(CScheduleTrigger quartzJob) throws SchedulerException {
+	public Date addJob(ScheduleJob quartzJob) throws SchedulerException {
 		try {
 			// 定时任务调度器Scheduler，由于使用spring集成了Quartz，所以Scheduler是由SchedulerFactoryBean进行管理的
 			Scheduler scheduler = schedulerFactoryBean.getScheduler();
 			// 使用JobBuilder就可以定义job -任务名、任务组、任务执行类
 			Class<Job> jobclass = (Class<Job>) Class.forName(quartzJob.getJobClass());
-			JobDetail jobDetail = JobBuilder.newJob(jobclass).withIdentity(quartzJob.getJobName(), quartzJob.getJobGroup()).build();
+			JobDetail jobDetail = JobBuilder.newJob(jobclass)
+					.withIdentity(quartzJob.getJobName(), quartzJob.getJobGroup()).build();
 			// 使用TriggerBuilder就可以构建触发器
 			Trigger trigger = TriggerBuilder.newTrigger().withIdentity(quartzJob.getJobName(), quartzJob.getJobGroup())
 					.withSchedule(CronScheduleBuilder.cronSchedule(quartzJob.getCronExpression())).build();
@@ -81,7 +79,7 @@ public class QuartzJobManager {
 	 * @param cronExpression
 	 * @return
 	 */
-	public Date modifyJob(CScheduleTrigger quartzJob) throws SchedulerException {
+	public Date modifyJob(ScheduleJob quartzJob) throws SchedulerException {
 		try {
 			// 定时任务调度器Scheduler，由于使用spring集成了Quartz，所以Scheduler是由SchedulerFactoryBean进行管理的
 			Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -111,8 +109,7 @@ public class QuartzJobManager {
 	 * @param group
 	 * @throws SchedulerException
 	 */
-	public void deleteJob(CScheduleTrigger quartzJob)
-			throws SchedulerException {
+	public void deleteJob(ScheduleJob quartzJob) throws SchedulerException {
 		/** 定时任务调度器Scheduler，由于使用spring集成了Quartz，所以Scheduler是由SchedulerFactoryBean进行管理的*/
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		// 停止触发器并移除触发器
@@ -142,7 +139,7 @@ public class QuartzJobManager {
 	 * @param group
 	 * @throws SchedulerException
 	 */
-	public void pauseJob(CScheduleTrigger quartzJob) throws SchedulerException {
+	public void pauseJob(ScheduleJob quartzJob) throws SchedulerException {
 		JobKey jobKey = new JobKey(quartzJob.getJobName(), quartzJob.getJobGroup());
 		// 定时任务调度器Scheduler，由于使用spring集成了Quartz，所以Scheduler是由SchedulerFactoryBean进行管理的
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -170,7 +167,7 @@ public class QuartzJobManager {
 	 * @param group
 	 * @throws SchedulerException
 	 */
-	public void resumeJob(CScheduleTrigger quartzJob) throws SchedulerException {
+	public void resumeJob(ScheduleJob quartzJob) throws SchedulerException {
 		// 定时任务调度器Scheduler，由于使用spring集成了Quartz，所以Scheduler是由SchedulerFactoryBean进行管理的
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = new JobKey(quartzJob.getJobName(), quartzJob.getJobGroup());

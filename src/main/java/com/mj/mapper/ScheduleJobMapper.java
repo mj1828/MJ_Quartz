@@ -2,27 +2,24 @@ package com.mj.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.mj.entity.ScheduleJob;
 
-import com.mj.entity.CScheduleTrigger;
-
-@Mapper
-public interface CScheduleTriggerMapper {
+public interface ScheduleJobMapper {
 	/**
 	 * 创建任务
 	 * @Description:   
 	 * @return: void      
 	 * @throws
 	 */
-	public void createQuartzJob(CScheduleTrigger job);
+	public void createQuartzJob(ScheduleJob job);
 
 	/**
 	 * 修改任务
 	 * @Description:   
-	 * @return: CScheduleTrigger      
+	 * @return: ScheduleJob      
 	 * @throws
 	 */
-	public CScheduleTrigger modifyQuartzJob(CScheduleTrigger job);
+	public ScheduleJob modifyQuartzJob(ScheduleJob job);
 
 	/**
 	 * 暂停所有任务
@@ -38,7 +35,7 @@ public interface CScheduleTriggerMapper {
 	 * @return: void      
 	 * @throws
 	 */
-	public void pauseQuartzJob(CScheduleTrigger quartzJob);
+	public void pauseQuartzJob(ScheduleJob quartzJob);
 
 	/**
 	 * 恢复全部任务
@@ -54,7 +51,7 @@ public interface CScheduleTriggerMapper {
 	 * @return: void      
 	 * @throws
 	 */
-	public void resumeQuartzJob(CScheduleTrigger quartzJob);
+	public void resumeQuartzJob(ScheduleJob quartzJob);
 
 	/**
 	 * 删除某个任务
@@ -62,38 +59,37 @@ public interface CScheduleTriggerMapper {
 	 * @return: void      
 	 * @throws
 	 */
-	public void deleteQuartzJob(CScheduleTrigger quartzJob);
+	public void deleteQuartzJob(ScheduleJob quartzJob);
 
 	/**
 	 * 根据ID查找任务
 	 * @Description:   
-	 * @return: CScheduleTrigger      
+	 * @return: ScheduleJob      
 	 * @throws
 	 */
-	public CScheduleTrigger findQuartzJobById(Integer jodId);
+	public ScheduleJob findQuartzJobById(Integer jodId);
 
 	/**
 	 * 根据状态获取任务列表
 	 * @Description:   
-	 * @return: List<CScheduleTrigger>      
+	 * @return: List<ScheduleJob>      
 	 * @throws
 	 */
-	public List<CScheduleTrigger> findQuartzJobByStatus(String jobStatus);
+	public List<ScheduleJob> findQuartzJobByStatus(String jobStatus);
 
 	/**
 	 * 根据key获取任务列表
 	 * @Description:   
-	 * @return: List<CScheduleTrigger>      
+	 * @return: List<ScheduleJob>      
 	 * @throws
 	 */
-	public List<CScheduleTrigger> findQuartzJobByKey(String jobName, String jobGroup);
+	public List<ScheduleJob> findQuartzJobByKey(String jobName, String jobGroup);
 
 	/**
 	 * 根据key更新任务
 	 * @Description:   
-	 * @return: List<CScheduleTrigger>      
+	 * @return: List<ScheduleJob>      
 	 * @throws
 	 */
-	public void updateQuartzJobByKey(CScheduleTrigger quartzJob);
-
+	public void updateQuartzJobByKey(ScheduleJob quartzJob);
 }

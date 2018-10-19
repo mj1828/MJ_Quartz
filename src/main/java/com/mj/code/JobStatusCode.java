@@ -11,8 +11,8 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class JobStatusCode {
 
-	public static String RUNNING = "1"; // 执行中
-	public static String STOPPED = "0"; // 已停止
+	public static Integer RUNNING = 1; // 执行中
+	public static Integer STOPPED = 0; // 已停止
 
 	/**
 	 * 获取value值
@@ -21,9 +21,9 @@ public class JobStatusCode {
 	 * @throws
 	 */
 	public static String getCode(String jobStatus) {
-		if (RUNNING.equals(jobStatus)) {
+		if (RUNNING.toString().equals(jobStatus)) {
 			return "执行中";
-		} else if (STOPPED.equals(jobStatus)) {
+		} else if (STOPPED.toString().equals(jobStatus)) {
 			return "已停止";
 		} else {
 			return "其他";

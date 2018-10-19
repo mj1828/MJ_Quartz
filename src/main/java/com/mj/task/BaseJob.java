@@ -16,7 +16,7 @@ public interface BaseJob extends Job {
 		return "mj";
 	};
 
-	public String getJobStatus();
+	public Integer getJobStatus();
 
 	default String getIsConcurrent() {
 		return YesOrNoCode.YES;

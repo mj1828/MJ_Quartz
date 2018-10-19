@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mj.common.ResultUtil;
-import com.mj.entity.CScheduleTrigger;
+import com.mj.entity.ScheduleJob;
 import com.mj.service.QuartzJobService;
 
 /**
@@ -29,7 +29,7 @@ public class QuartzJobController {
 	 *          job @param: @return @return: ResponseResult @throws
 	 */
 	@PostMapping(value = "/create")
-	public String createQuartzJob(@RequestBody CScheduleTrigger job) {
+	public String createQuartzJob(@RequestBody ScheduleJob job) {
 		quartzJobService.createQuartzJob(job);
 		return ResultUtil.success("创建成功");
 	}
@@ -39,7 +39,7 @@ public class QuartzJobController {
 	 *          job @param: @return @return: ResponseResult @throws
 	 */
 	@PostMapping(value = "/modify")
-	public String modifyQuartzJob(@RequestBody CScheduleTrigger job) {
+	public String modifyQuartzJob(@RequestBody ScheduleJob job) {
 		quartzJobService.modifyQuartzJob(job);
 		return ResultUtil.success("修改成功");
 	}
@@ -60,7 +60,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/pause")
-	public String pauseQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
+	public String pauseQuartzJob(@RequestBody ScheduleJob quartzJob) {
 		quartzJobService.pauseQuartzJob(quartzJob);
 		return ResultUtil.success("成功");
 	}
@@ -80,7 +80,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/resume")
-	public String resumeQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
+	public String resumeQuartzJob(@RequestBody ScheduleJob quartzJob) {
 		quartzJobService.resumeQuartzJob(quartzJob);
 		return ResultUtil.success("成功");
 	}
@@ -90,7 +90,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/delete")
-	public String deleteQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
+	public String deleteQuartzJob(@RequestBody ScheduleJob quartzJob) {
 		System.out.println("jobID:" + quartzJob.getJobId());
 		quartzJobService.deleteQuartzJob(quartzJob);
 		return ResultUtil.success("成功");

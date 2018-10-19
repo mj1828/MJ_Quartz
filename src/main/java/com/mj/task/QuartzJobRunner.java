@@ -14,8 +14,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import com.mj.code.JobStatusCode;
-import com.mj.entity.CScheduleTrigger;
-import com.mj.mapper.CScheduleTriggerMapper;
+import com.mj.entity.ScheduleJob;
+import com.mj.mapper.ScheduleJobMapper;
 import com.mj.service.QuartzJobService;
 
 /**
@@ -34,7 +34,7 @@ public class QuartzJobRunner implements ApplicationRunner {
 	private QuartzJobService quartzJobService;
 
 	@Autowired
-	private CScheduleTriggerMapper mapper;
+	private ScheduleJobMapper mapper;
 
 	@Autowired
 	private QuartzJobManager quartzJobManager;
@@ -46,7 +46,7 @@ public class QuartzJobRunner implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		log.info("**********初始化加载定时任务开始**********");
 		scanJobs();
-		List<CScheduleTrigger> jobList = quartzJobService.findQuartzJobByStatus(JobStatusCode.RUNNING);
+		List<ScheduleJob> jobList = quartzJobService.findQuartzJobByStatus(JobStatusCode.RUNNING + "");
 		if (jobList != null && jobList.size() > 0) {
 			jobList.forEach((quartzJob) -> {
 				try {
@@ -80,8 +80,8 @@ public class QuartzJobRunner implements ApplicationRunner {
 				BaseJob baseJob = (BaseJob) job.newInstance();
 				String jobName = baseJob.getJobName();
 				String jobGroup = baseJob.getJobGroup();
-				List<CScheduleTrigger> list = mapper.findQuartzJobByKey(jobName, jobGroup);
-				CScheduleTrigger jobDetail = new CScheduleTrigger();
+				List<ScheduleJob> list = mapper.findQuartzJobByKey(jobName, jobGroup);
+				ScheduleJob jobDetail = new ScheduleJob();
 				jobDetail.setJobName(jobName);
 				jobDetail.setJobGroup(jobGroup);
 				jobDetail.setJobStatus(baseJob.getJobStatus());

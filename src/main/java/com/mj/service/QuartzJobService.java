@@ -2,12 +2,13 @@ package com.mj.service;
 
 import java.util.List;
 
-import com.mj.entity.CScheduleTrigger;
-
+import com.mj.entity.ScheduleJob;
 
 /**
- * @author cobra
- *
+ * 
+ * @author MJ
+ * @mail mj_java@.com
+ * @date 2018年10月19日
  */
 public interface QuartzJobService {
 
@@ -18,10 +19,9 @@ public interface QuartzJobService {
 	 * @param: @return
 	 * @return: QuartzJob
 	 * @throws  
-	 */  
-	public CScheduleTrigger createQuartzJob(CScheduleTrigger job);
+	 */
+	public ScheduleJob createQuartzJob(ScheduleJob job);
 
-	
 	/**  
 	 * @Method: modifyQuartzJob  
 	 * @Description: 修改job
@@ -29,19 +29,17 @@ public interface QuartzJobService {
 	 * @param: @return
 	 * @return: QuartzJob
 	 * @throws  
-	 */  
-	public CScheduleTrigger modifyQuartzJob(CScheduleTrigger job);
+	 */
+	public ScheduleJob modifyQuartzJob(ScheduleJob job);
 
-	
 	/**  
 	 * @Method: pauseAllQuartzJob  
 	 * @Description: 暂停所有job
 	 * @param: 
 	 * @return: void
 	 * @throws  
-	 */  
+	 */
 	public void pauseAllQuartzJob();
-
 
 	/**  
 	 * @Method: pauseQuartzJob  
@@ -49,40 +47,36 @@ public interface QuartzJobService {
 	 * @param: @param quartzJob
 	 * @return: void
 	 * @throws  
-	 */  
-	public void pauseQuartzJob(CScheduleTrigger quartzJob);
+	 */
+	public void pauseQuartzJob(ScheduleJob quartzJob);
 
-	
 	/**  
 	 * @Method: resumeAllQuartzJob  
 	 * @Description: 恢复所有job
 	 * @param: 
 	 * @return: void
 	 * @throws  
-	 */  
+	 */
 	public void resumeAllQuartzJob();
 
-	
 	/**  
 	 * @Method: resumeQuartzJob  
 	 * @Description: 恢复某个job
 	 * @param: @param quartzJob
 	 * @return: void
 	 * @throws  
-	 */  
-	public void resumeQuartzJob(CScheduleTrigger quartzJob);
+	 */
+	public void resumeQuartzJob(ScheduleJob quartzJob);
 
-	
 	/**  
 	 * @Method: deleteQuartzJob  
 	 * @Description: 删除某个job
 	 * @param: @param quartzJob
 	 * @return: void
 	 * @throws  
-	 */  
-	public void deleteQuartzJob(CScheduleTrigger quartzJob);
+	 */
+	public void deleteQuartzJob(ScheduleJob quartzJob);
 
-	
 	/**  
 	 * @Method: findQuartzJobById  
 	 * @Description:  查询job
@@ -90,10 +84,9 @@ public interface QuartzJobService {
 	 * @param: @return
 	 * @return: QuartzJob
 	 * @throws  
-	 */  
-	public CScheduleTrigger findQuartzJobById(Integer jodId);
+	 */
+	public ScheduleJob findQuartzJobById(Integer jodId);
 
-	
 	/**  
 	 * @Method: findQuartzJobByStatus  
 	 * @Description: 根据状态查找job
@@ -101,7 +94,7 @@ public interface QuartzJobService {
 	 * @param: @return
 	 * @return: List<QuartzJob>
 	 * @throws  
-	 */  
-	public List<CScheduleTrigger> findQuartzJobByStatus(String jobStatus);
+	 */
+	public List<ScheduleJob> findQuartzJobByStatus(String jobStatus);
 
 }

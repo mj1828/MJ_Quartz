@@ -6,29 +6,28 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mj.entity.CScheduleTrigger;
-import com.mj.mapper.CScheduleTriggerMapper;
+import com.mj.entity.ScheduleJob;
+import com.mj.mapper.ScheduleJobMapper;
 import com.mj.service.QuartzJobService;
 import com.mj.task.QuartzJobManager;
 
 /**
- * @ClassName: QuartzJobServiceImpl
- * @Description: job操作实现类
- * @author: cobra
- * @date: 2018年9月28日
- * @version: v1.0
+ * job操作实现类
+ * @author MJ
+ * @mail mj_java@.com
+ * @date 2018年10月19日
  */
 @Service
 public class QuartzJobServiceImpl implements QuartzJobService {
 
 	@Autowired
-	private CScheduleTriggerMapper mapper;
+	private ScheduleJobMapper mapper;
 
 	@Autowired
 	private QuartzJobManager quartzJobManager;
 
 	@Override
-	public CScheduleTrigger createQuartzJob(CScheduleTrigger job) {
+	public ScheduleJob createQuartzJob(ScheduleJob job) {
 		mapper.createQuartzJob(job);
 		try {
 			quartzJobManager.addJob(job);
@@ -39,7 +38,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	}
 
 	@Override
-	public CScheduleTrigger modifyQuartzJob(CScheduleTrigger job) {
+	public ScheduleJob modifyQuartzJob(ScheduleJob job) {
 		mapper.modifyQuartzJob(job);
 		try {
 			quartzJobManager.modifyJob(job);
@@ -60,7 +59,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	}
 
 	@Override
-	public void pauseQuartzJob(CScheduleTrigger quartzJob) {
+	public void pauseQuartzJob(ScheduleJob quartzJob) {
 		mapper.pauseQuartzJob(quartzJob);
 		try {
 			quartzJobManager.pauseJob(quartzJob);
@@ -80,7 +79,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	}
 
 	@Override
-	public void resumeQuartzJob(CScheduleTrigger quartzJob) {
+	public void resumeQuartzJob(ScheduleJob quartzJob) {
 		mapper.resumeQuartzJob(quartzJob);
 		try {
 			quartzJobManager.resumeJob(quartzJob);
@@ -90,7 +89,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	}
 
 	@Override
-	public void deleteQuartzJob(CScheduleTrigger quartzJob) {
+	public void deleteQuartzJob(ScheduleJob quartzJob) {
 		mapper.deleteQuartzJob(quartzJob);
 		try {
 			quartzJobManager.deleteJob(quartzJob);
@@ -100,12 +99,12 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	}
 
 	@Override
-	public CScheduleTrigger findQuartzJobById(Integer jodId) {
+	public ScheduleJob findQuartzJobById(Integer jodId) {
 		return mapper.findQuartzJobById(jodId);
 	}
 
 	@Override
-	public List<CScheduleTrigger> findQuartzJobByStatus(String jobStatus) {
+	public List<ScheduleJob> findQuartzJobByStatus(String jobStatus) {
 		return mapper.findQuartzJobByStatus(jobStatus);
 	}
 

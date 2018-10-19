@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mj.mapper.CScheduleTriggerMapper">
+<mapper namespace="com.mj.mapper.ScheduleJobMapper">
 	<resultMap id="BaseResultMap"
-		type="com.mj.entity.CScheduleTrigger">
+		type="com.mj.entity.ScheduleJob">
 		<id column="jobId" jdbcType="INTEGER" property="jobid" />
 		<result column="jobName" jdbcType="VARCHAR" property="jobname" />
 		<result column="jobGroup" jdbcType="VARCHAR"
@@ -35,8 +35,8 @@
 	</sql>
 
 	<insert id="createQuartzJob"
-		parameterType="com.mj.entity.CScheduleTrigger">
-		insert into CScheduleTrigger
+		parameterType="com.mj.entity.ScheduleJob">
+		insert into MJ_ScheduleJob
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 
 			<if test="jobName != null">
@@ -116,35 +116,35 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="modifyQuartzJob" parameterType="com.mj.entity.CScheduleTrigger">
-		update CScheduleTrigger set cronExpression = #{cronexpression,jdbcType=VARCHAR} where jobId = #{jobId,jdbcType=INTEGER}
+	<update id="modifyQuartzJob" parameterType="com.mj.entity.ScheduleJob">
+		update MJ_ScheduleJob set cronExpression = #{cronexpression,jdbcType=VARCHAR} where jobId = #{jobId,jdbcType=INTEGER}
 	</update>
 	<update id="pauseAllQuartzJob">
-		update CScheduleTrigger set jobstatus = '0'
+		update MJ_ScheduleJob set jobstatus = '0'
 	</update>
-	<update id="pauseQuartzJob" parameterType="com.mj.entity.CScheduleTrigger">
-		update CScheduleTrigger set jobstatus = '0' where jobId = #{jobId,jdbcType=INTEGER}
+	<update id="pauseQuartzJob" parameterType="com.mj.entity.ScheduleJob">
+		update MJ_ScheduleJob set jobstatus = '0' where jobId = #{jobId,jdbcType=INTEGER}
 	</update>
 	<update id="resumeAllQuartzJob">
-		update CScheduleTrigger set jobstatus = '1'
+		update MJ_ScheduleJob set jobstatus = '1'
 	</update>
-	<update id="resumeQuartzJob" parameterType="com.mj.entity.CScheduleTrigger">
-		update CScheduleTrigger set jobstatus = '1' where jobId = #{jobId,jdbcType=INTEGER}
+	<update id="resumeQuartzJob" parameterType="com.mj.entity.ScheduleJob">
+		update MJ_ScheduleJob set jobstatus = '1' where jobId = #{jobId,jdbcType=INTEGER}
 	</update>
-	<delete id="deleteQuartzJob" parameterType="com.mj.entity.CScheduleTrigger">
-		delete from CScheduleTrigger where jobId = #{jobId,jdbcType=INTEGER}
+	<delete id="deleteQuartzJob" parameterType="com.mj.entity.ScheduleJob">
+		delete from MJ_ScheduleJob where jobId = #{jobId,jdbcType=INTEGER}
 	</delete>
 	<select id="findQuartzJobById" parameterType="INTEGER">
-		select * from CScheduleTrigger where jobId = #{jobId,jdbcType=INTEGER}
+		select * from MJ_ScheduleJob where jobId = #{jobId,jdbcType=INTEGER}
 	</select>
-	<select id="findQuartzJobByStatus" parameterType="STRING" resultType="com.mj.entity.CScheduleTrigger">
-		select * from CScheduleTrigger where jobstatus = #{jobStatus}
+	<select id="findQuartzJobByStatus" parameterType="STRING" resultType="com.mj.entity.ScheduleJob">
+		select * from MJ_ScheduleJob where jobstatus = #{jobStatus}
 	</select>
-	<select id="findQuartzJobByKey"  resultType="com.mj.entity.CScheduleTrigger">
-		select * from CScheduleTrigger where jobName = #{param1} and jobGroup = #{param2}
+	<select id="findQuartzJobByKey"  resultType="com.mj.entity.ScheduleJob">
+		select * from MJ_ScheduleJob where jobName = #{param1} and jobGroup = #{param2}
 	</select>
-	<update id="updateQuartzJobByKey" parameterType="com.mj.entity.CScheduleTrigger">
-    update CScheduleTrigger
+	<update id="updateQuartzJobByKey" parameterType="com.mj.entity.ScheduleJob">
+    update MJ_ScheduleJob
     <set>
       <if test="jobStatus != null">
         jobStatus = #{jobStatus,jdbcType=INTEGER},

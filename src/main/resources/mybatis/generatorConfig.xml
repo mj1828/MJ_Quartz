@@ -7,7 +7,7 @@
     <context id="context1">  
         <commentGenerator>  
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->  
-            <property name="suppressAllComments" value="true"/>  
+            <property name="suppressAllComments" value="true"/> 
         </commentGenerator>  
         <!-- 数据库链接URL、用户名、密码 -->  
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"  
@@ -19,8 +19,9 @@
         <!-- 生成DAO的包名和位置 -->  
         <javaClientGenerator targetPackage="com.mj.mapper" targetProject="MJ_Quartz/src/main/java" type="XMLMAPPER" />  
         <!-- 要生成的那些表(更改tableName 和domainObjectName 就可以了) -->  
-        <table tableName="CScheduleTrigger" domainObjectName="CScheduleTrigger" enableCountByExample="false" enableUpdateByExample="false"  
+        <table tableName="MJ_ScheduleJob" domainObjectName="ScheduleJob" enableCountByExample="false" enableUpdateByExample="false"  
             enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+            <property name="useActualColumnNames" value="true"/>  
         </table>  
     </context>  
 </generatorConfiguration>  

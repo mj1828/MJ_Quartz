@@ -20,7 +20,7 @@ public class CobraJob implements BaseJob {
 	}
 
 	@Override
-	public String getJobStatus() {
+	public Integer getJobStatus() {
 		return JobStatusCode.RUNNING;
 	}
 
