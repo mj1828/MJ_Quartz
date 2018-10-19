@@ -29,7 +29,7 @@ public class QuartzJobController {
 	 *          job @param: @return @return: ResponseResult @throws
 	 */
 	@PostMapping(value = "/create")
-	public String createQuartzJob(CScheduleTrigger job) {
+	public String createQuartzJob(@RequestBody CScheduleTrigger job) {
 		quartzJobService.createQuartzJob(job);
 		return ResultUtil.success("创建成功");
 	}
@@ -60,7 +60,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/pause")
-	public String pauseQuartzJob(CScheduleTrigger quartzJob) {
+	public String pauseQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
 		quartzJobService.pauseQuartzJob(quartzJob);
 		return ResultUtil.success("成功");
 	}
@@ -80,7 +80,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/resume")
-	public String resumeQuartzJob(CScheduleTrigger quartzJob) {
+	public String resumeQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
 		quartzJobService.resumeQuartzJob(quartzJob);
 		return ResultUtil.success("成功");
 	}
@@ -90,7 +90,7 @@ public class QuartzJobController {
 	 *          quartzJob @param: @return @return: ResponseResult @throws
 	 */
 	@RequestMapping("/delete")
-	public String deleteQuartzJob(CScheduleTrigger quartzJob) {
+	public String deleteQuartzJob(@RequestBody CScheduleTrigger quartzJob) {
 		System.out.println("jobID:" + quartzJob.getJobId());
 		quartzJobService.deleteQuartzJob(quartzJob);
 		return ResultUtil.success("成功");

@@ -10,3 +10,8 @@ mybatis:
   type-aliases-package: com.mj.entity
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+
+# 配置定时任务扫描路径 
+mj:
+  quartz:
+    jobpath: com.mj.task.job

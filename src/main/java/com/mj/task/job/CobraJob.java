@@ -1,19 +1,37 @@
 package com.mj.task.job;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import com.mj.code.JobStatusCode;
+import com.mj.task.BaseJob;
 
-public class CobraJob implements Job{
-	private Logger log = LoggerFactory.getLogger(CobraJob.class);
+public class CobraJob implements BaseJob {
+	private static String ID = "cobrajob";
+
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
-		log.info("定时job:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		log.info("开始定时任务");
 	}
+
+	@Override
+	public String getJobName() {
+		return ID;
+	}
+
+	@Override
+	public String getJobStatus() {
+		return JobStatusCode.RUNNING;
+	}
+
+	@Override
+	public String getCronExpression() {
+		return "*/2 * * * * ?";
+	}
+
+	@Override
+	public String getDescription() {
+		return "测试定时任务";
+	}
+
 }

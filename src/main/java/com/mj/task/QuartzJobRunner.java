@@ -1,16 +1,21 @@
 package com.mj.task;
 
+import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import com.mj.code.JobStatusCode;
 import com.mj.entity.CScheduleTrigger;
+import com.mj.mapper.CScheduleTriggerMapper;
 import com.mj.service.QuartzJobService;
 
 /**
@@ -29,13 +34,19 @@ public class QuartzJobRunner implements ApplicationRunner {
 	private QuartzJobService quartzJobService;
 
 	@Autowired
+	private CScheduleTriggerMapper mapper;
+
+	@Autowired
 	private QuartzJobManager quartzJobManager;
+
+	@Value("${mj.quartz.jobpath:#{com.mj.task.job}}")
+	private String jobPath;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-
 		log.info("**********初始化加载定时任务开始**********");
-		List<CScheduleTrigger> jobList = quartzJobService.findQuartzJobByStatus(CScheduleTrigger.STATUS_RUNNING);
+		scanJobs();
+		List<CScheduleTrigger> jobList = quartzJobService.findQuartzJobByStatus(JobStatusCode.RUNNING);
 		if (jobList != null && jobList.size() > 0) {
 			jobList.forEach((quartzJob) -> {
 				try {
@@ -45,10 +56,53 @@ public class QuartzJobRunner implements ApplicationRunner {
 					log.info("**********初始化加载定时任务异常**********");
 				}
 			});
-			log.info("**********初始化加载定时任务结束**********");
-		} else {
-			log.info("**********没有加载到定时任务**********");
 		}
+	}
 
+	/**
+	 * 自动扫描指定文件夹下的定时任务
+	 * @Description:   
+	 * @return: void      
+	 * @throws
+	 */
+	private void scanJobs() {
+		String packageDirName = jobPath.replace('.', '/');
+		URL url = this.getClass().getClassLoader().getResource(packageDirName);
+		File file = new File(url.getFile());
+		String[] files = file.list();
+		for (String className : files) {
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(jobPath);
+			stringBuilder.append(".");
+			stringBuilder.append(className.substring(0, className.indexOf(".")));
+			try {
+				Class<?> job = Class.forName(stringBuilder.toString());
+				BaseJob baseJob = (BaseJob) job.newInstance();
+				String jobName = baseJob.getJobName();
+				String jobGroup = baseJob.getJobGroup();
+				List<CScheduleTrigger> list = mapper.findQuartzJobByKey(jobName, jobGroup);
+				CScheduleTrigger jobDetail = new CScheduleTrigger();
+				jobDetail.setJobName(jobName);
+				jobDetail.setJobGroup(jobGroup);
+				jobDetail.setJobStatus(baseJob.getJobStatus());
+				jobDetail.setCronExpression(baseJob.getCronExpression());
+				jobDetail.setDescription(baseJob.getDescription());
+				jobDetail.setJobClass(stringBuilder.toString());
+				jobDetail.setMethodName(baseJob.getMethodName());
+				if (list != null && list.size() > 0) {
+					log.info("已插入，更新所有定时任务");
+					mapper.updateQuartzJobByKey(jobDetail);
+				} else {
+					log.info("新任务，持久化到数据库");
+					mapper.createQuartzJob(jobDetail);
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -2,12 +2,14 @@ package com.mj.service.impl;
 
 import java.util.List;
 
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mj.entity.CScheduleTrigger;
 import com.mj.mapper.CScheduleTriggerMapper;
 import com.mj.service.QuartzJobService;
+import com.mj.task.QuartzJobManager;
 
 /**
  * @ClassName: QuartzJobServiceImpl
@@ -22,57 +24,89 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	@Autowired
 	private CScheduleTriggerMapper mapper;
 
+	@Autowired
+	private QuartzJobManager quartzJobManager;
+
 	@Override
 	public CScheduleTrigger createQuartzJob(CScheduleTrigger job) {
-		mapper.insertSelective(job);
+		mapper.createQuartzJob(job);
+		try {
+			quartzJobManager.addJob(job);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 		return job;
 	}
 
 	@Override
 	public CScheduleTrigger modifyQuartzJob(CScheduleTrigger job) {
-		mapper.updateByPrimaryKeySelective(job);
+		mapper.modifyQuartzJob(job);
+		try {
+			quartzJobManager.modifyJob(job);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 		return job;
 	}
 
 	@Override
 	public void pauseAllQuartzJob() {
-		// TODO Auto-generated method stub
-
+		mapper.pauseAllQuartzJob();
+		try {
+			quartzJobManager.pauseAllJob();
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void pauseQuartzJob(CScheduleTrigger quartzJob) {
-		mapper.updateByPrimaryKeySelective(quartzJob);
-
+		mapper.pauseQuartzJob(quartzJob);
+		try {
+			quartzJobManager.pauseJob(quartzJob);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void resumeAllQuartzJob() {
-		// TODO Auto-generated method stub
-
+		mapper.resumeAllQuartzJob();
+		try {
+			quartzJobManager.resumeAllJob();
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void resumeQuartzJob(CScheduleTrigger quartzJob) {
-		// TODO Auto-generated method stub
-
+		mapper.resumeQuartzJob(quartzJob);
+		try {
+			quartzJobManager.resumeJob(quartzJob);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void deleteQuartzJob(CScheduleTrigger quartzJob) {
-		mapper.deleteByPrimaryKey(quartzJob.getJobId());
-
+		mapper.deleteQuartzJob(quartzJob);
+		try {
+			quartzJobManager.deleteJob(quartzJob);
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public CScheduleTrigger findQuartzJobById(Integer jodId) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.findQuartzJobById(jodId);
 	}
 
 	@Override
 	public List<CScheduleTrigger> findQuartzJobByStatus(String jobStatus) {
-		return mapper.cornList();
+		return mapper.findQuartzJobByStatus(jobStatus);
 	}
 
 }
