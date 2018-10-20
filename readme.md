@@ -52,3 +52,12 @@
 
 ## 补充
 1. 项目还在开发中，没有整体测试，有问题联系 mj_java@163.com
+2. 添加集群支持，集群中单节点定时任务通过配置项指定
+```
+mj:
+  quartz:
+    jobpath: com.mj.task.job # 配置定时任务扫描路径
+  cluster:
+    open: true # 开启定时任务集群配置
+    joblist: cobrajob # 配置集群当前应用开启定时任务,多个定时任务用 ; 分割
+```
