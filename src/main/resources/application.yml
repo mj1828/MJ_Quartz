@@ -11,7 +11,10 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
 
-# 配置定时任务扫描路径 
+ 
 mj:
   quartz:
-    jobpath: com.mj.task.job
+    jobpath: com.mj.task.job # 配置定时任务扫描路径
+  cluster:
+    open: true # 开启定时任务集群配置
+    joblist: cobrajob # 配置集群当前应用开启定时任务
